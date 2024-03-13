@@ -140,7 +140,7 @@ function createCircleWithDelay() {
 function createCircle() {
   var x1 = Math.random() * (canvas.width - 2 * radius) + radius;
   var color = getRandomColor();
-  circles.push({ x1: x1, y1: 0, color: color, active: true }); // Add active property
+  circles.push({ x1: x1, y1: 0, color: color, active: true }); // Adds properties to each object in array
   totalCircles++;
 }
 
@@ -175,11 +175,11 @@ function createRectangle(){
 
 function moveRight(){
   
-if(x<400){
+  if( x < 400){
 
-x=x+10;
+    x = x + 10;
 
-        }
+  }
 }
 
 function startMoveRight() {
@@ -198,10 +198,11 @@ function stopMove(){
 
 function moveLeft(){
 
-  if(x>0) {
+  if( x > 0) {
 
-  x-=10;
-          }
+    x -= 10;
+  
+  }
 }
 
 function collisionDetection() {
@@ -225,10 +226,13 @@ function collisionDetection() {
 }
 
 function escaped() {
+  
+  //checking to make sure objects still in Array  //checking if every object or "circle" in Array is not active
   var allCirclesInactive = circles.length > 0 && circles.every(function (circle) {
     return !circle.active;
   });
 
+  
   if (allCirclesInactive) {
     clearInterval(IntervalID5); // Stop the timer interval
 
@@ -236,11 +240,13 @@ function escaped() {
     document.getElementById('output').innerHTML = 'Game Over! You had a success percentage of ' +burstCount+ '%. Refresh the page to play again!';
 
     
-                            }
+  }
 
+  //checks for escaped circles, increments the sum of escaped circles
+  //and brings circles back to top of the screen
   for (i = 0; i < circles.length; i++) {
     if (circles[i].y1 > canvas.height) {
-      sum = sum + 1;
+      sum = sum + 1; 
       circles[i].y1 = 0;
                                         }
   }
@@ -252,7 +258,7 @@ function updateTimer() {
   document.getElementById('steps').innerHTML = 'Elapsed Time: ' + elapsedTime + ' ms';
 }
 
-startGame();
+
 
 
 
