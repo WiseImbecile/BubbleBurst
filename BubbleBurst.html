@@ -5,20 +5,27 @@
 	   	<title>Bubble Burster</title>
 	 	<script type="text/javascript" src="BubbleBurst.js"></script>
 	</head>
-	<body>
+	<body style="background-color: gray;">
 		<div style="text-align:center;">
 	     	<h2>Bubble Burster</h2>
-			<canvas id="myCanvas" width="450" height="300" style="border:5px solid #000000; background-color: #f1f1f1;">
+			<canvas id="myCanvas" width="450" height="300" style="border:5px solid #000000; background-color:black;">
 				Your browser does not support the canvas element.
 			</canvas><br>
-			<button onmousedown="startMoveLeft();" onmouseup="stopMove();">LEFT</button>
+			<button  onmousedown="startMoveLeft();" onmouseup="stopMove();">LEFT</button>
 			<button onmousedown="startMoveRight();" onmouseup="stopMove();">RIGHT</button><br><br>
 			
-		  		<input type="radio" name="difficulty" value="easy" id="easy" onclick="easy();;"> Easy &nbsp;&nbsp;
-		  		<input type="radio" name="difficulty" value="moderate" onclick="moderate()"> Moderate &nbsp;&nbsp;
-		  		<input type="radio" name="difficulty" value="hard" onclick="hard()"> Hard  &nbsp;&nbsp;
-		  		<input type="radio" name="difficulty" value="impossible" onclick="impossible()"> Impossible <br><br>
-			
+		  		<input type="radio" name="difficulty" value = "easy" id="easy" onclick="easy()">&nbsp;&nbsp;
+				<span id = "easy_text">Easy</span>&nbsp;&nbsp;
+
+		  		<input type="radio" name="difficulty" value = "moderate" id = "moderate" onclick="moderate()">&nbsp;&nbsp;
+				<span id = "moderate_text">Moderate</span>&nbsp;&nbsp;
+
+		  		<input type="radio" name="difficulty" value = "hard" id = "hard" onclick="hard()">  &nbsp;&nbsp;
+				<span id = "hard_text">Hard</span>&nbsp;&nbsp;
+
+		  		<input type="radio" name="difficulty" value = "impossible" id = "impossible" onclick="impossible()"> &nbsp;&nbsp;
+				<span id = "impossible_text">Impossible</span><br><br>
+
 			<span id="burst">Burst:</span> &nbsp;&nbsp;
 			<span id="escaped">Escaped: </span> &nbsp;&nbsp;
 			<span id="steps">Steps elapsed:</span> &nbsp;&nbsp;
