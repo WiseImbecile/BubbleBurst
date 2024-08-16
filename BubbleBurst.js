@@ -2,9 +2,10 @@ var circles = [];
 var canvas, pen, canvasColor;
 var radius = 10;
 var totalCircles = 0;
-var clicked = false;
-var clicked2= false;
-var clicked3= false; 
+var click_hard = false;
+var click_moderate = false;
+var click_easy = false;
+var click_impossible = false;
 var IntervalID;
 var IntervalID2;
 var x1;
@@ -19,9 +20,10 @@ var burstCount = 0;
 var sum = 0;
 var elapsedTime=0;
 
-window.onload=function(){
+window.onload = function(){
+
   startGame();
-  clickEasy();
+  // clickEasy();
   }
 
 function animate() {
@@ -30,49 +32,83 @@ function animate() {
   createRectangle();
   collisionDetection();
   escaped();
+  
 }
 
 function clickEasy(){
-
   document.getElementById('easy').click();
+}
 
+function buttons_disappear(){
+  document.getElementById("easy").style.visibility = "hidden";
+  document.getElementById("easy_text").innerHTML = "";
 
+  document.getElementById('moderate').style.visibility = "hidden", innerHTML = " ";
+  document.getElementById("moderate_text").innerHTML = "";
+
+  document.getElementById('hard').style.visibility = "hidden";
+  document.getElementById("hard_text").innerHTML = "";
+
+  document.getElementById('impossible').style.visibility = "hidden"; innerHTML = " ";
+  document.getElementById("impossible_text").innerHTML = "";
 }
 
 function startGame() {
+  
+  //if(difficulty == 1){
+  // clickEasy()
+  //}
+  // animate()
   canvas = document.getElementById('myCanvas');
   pen = canvas.getContext('2d');
   canvasColor = '#EAEDDC';
 
   
-  IntervalID5 = setInterval(updateTimer,50);
-  IntervalID2=setInterval(createCircleWithDelay, 2000);         // Create a new circle every 2 seconds
-  IntervalID = setInterval(animate, 200);
+  // IntervalID5 = setInterval(updateTimer,50);
+  // IntervalID2 = setInterval(createCircleWithDelay, 2000);         // Create a new circle every 2 seconds
+  //IntervalID = setInterval(animate, 200);
+
   }
 
 function easy() {
 
-  if (clicked3==false) {
-
-  canvas = document.getElementById('myCanvas');
-  pen = canvas.getContext('2d');
-  canvasColor = '#EAEDDC';
   
-  clearInterval(IntervalID)
-  clearInterval(IntervalID2)
-  IntervalID2 = setInterval(createCircleWithDelay, 2000);         // Create a new circle every 2 seconds
-  IntervalID = setInterval(animate, 200);
+  if (click_easy == false) {
+    
+    
+    buttons_disappear();
+    click_easy = true;
+    click_moderate = false;
+    click_hard = false;
+    click_impossible = false;
+    
+    //window.location.reload();
+    canvas = document.getElementById('myCanvas');
+    pen = canvas.getContext('2d');
+    canvasColor = '#EAEDDC';
+    
+    clearInterval(IntervalID)
+    clearInterval(IntervalID2)
+    IntervalID2 = setInterval(createCircleWithDelay, 2000);         // Create a new circle every 2 seconds
+    IntervalID = setInterval(animate, 200);
+    IntervalID5 = setInterval(updateTimer,50);
   }
-  clicked3 = true;
-  clicked2 = false;
-  clicked = false;
+  
+  
 
 }
 
 function moderate (){
 
-  if (clicked2 == false){
+  
+  if (click_moderate == false){
+  buttons_disappear();
+  click_moderate= true;
+  click_hard = false;
+  click_easy = false;
+  click_impossible = false;
 
+  //window.location.reload();
   canvas = document.getElementById('myCanvas');
   pen = canvas.getContext('2d');
   canvasColor = '#EAEDDC';
@@ -81,38 +117,56 @@ function moderate (){
   clearInterval(IntervalID2)
   IntervalID2=setInterval(createCircleWithDelay, 2000); // Create a new circle every 2 seconds
   IntervalID=setInterval(animate, 100);
+  IntervalID5 = setInterval(updateTimer,50);
   }
-  clicked2= true;
-  clicked = false;
-  clicked3 = false;
 }
 
 function hard (){
+
+  
   canvas = document.getElementById('myCanvas');
   pen = canvas.getContext('2d');
   canvasColor = '#EAEDDC';
-
-   if(clicked == false) {
   
-  clearInterval(IntervalID)
-  clearInterval(IntervalID2)
-  IntervalID2 = setInterval(createCircleWithDelay, 1000); // Create a new circle every 1 seconds
-  IntervalID=setInterval(animate, 50);}
+  if(click_hard == false) {
+    //window.location.reload();
+    
+    buttons_disappear();
+    clearInterval(IntervalID)
+    clearInterval(IntervalID2)
+    IntervalID2 = setInterval(createCircleWithDelay, 1000); // Create a new circle every 1 seconds
+    IntervalID=setInterval(animate, 50);
+    IntervalID5 = setInterval(updateTimer,50);
+  }
 
-  clicked = true;
-  clicked2= false;
-  clicked3= false;
+  click_hard = true;
+  click_moderate= false;
+  click_easy= false;
+  click_impossible = false;
 }
 
 function impossible (){
-  canvas = document.getElementById('myCanvas');
-  pen = canvas.getContext('2d');
-  canvasColor = '#EAEDDC';
-    
-  clearInterval(IntervalID)
-  clearInterval(IntervalID2)
-  IntervalID2= setInterval(createCircleWithDelay, 250); // Create a new circle every 1 seconds
-  IntervalID=setInterval(animate, 25);
+  if(click_impossible == false){
+
+    buttons_disappear();
+    //window.location.reload(true);
+    canvas = document.getElementById('myCanvas');
+    pen = canvas.getContext('2d');
+    canvasColor = '#EAEDDC';
+      
+    clearInterval(IntervalID)
+    clearInterval(IntervalID2)
+    IntervalID2= setInterval(createCircleWithDelay, 250); // Create a new circle every 1 seconds
+    IntervalID=setInterval(animate, 25);
+    IntervalID5 = setInterval(updateTimer,50);
+  }
+
+  click_hard = false;
+  click_moderate= false;
+  click_easy= false;
+  click_impossible = true;
+
+
 }
 
 function drawCircle(x1, y1, color) {
@@ -177,17 +231,17 @@ function moveRight(){
   
   if( x < 400){
 
-    x = x + 10;
+    x = x + 5;
 
   }
 }
 
 function startMoveRight() {
-  IntervalID3 = setInterval(moveRight,50);
+  IntervalID3 = setInterval(moveRight,15);
 }
 
 function startMoveLeft() {
-  IntervalID4 = setInterval(moveLeft,50);
+  IntervalID4 = setInterval(moveLeft,15);
   }
 
 function stopMove(){
@@ -200,7 +254,7 @@ function moveLeft(){
 
   if( x > 0) {
 
-    x -= 10;
+    x -= 5;
   
   }
 }
@@ -232,15 +286,6 @@ function escaped() {
     return !circle.active;
   });
 
-  
-  if (allCirclesInactive) {
-    clearInterval(IntervalID5); // Stop the timer interval
-
-    
-    document.getElementById('output').innerHTML = 'Game Over! You had a success percentage of ' +burstCount+ '%. Refresh the page to play again!';
-
-    
-  }
 
   //checks for escaped circles, increments the sum of escaped circles
   //and brings circles back to top of the screen
@@ -248,16 +293,31 @@ function escaped() {
     if (circles[i].y1 > canvas.height) {
       sum = sum + 1; 
       circles[i].y1 = 0;
-                                        }
+      }
   }
       document.getElementById('escaped').innerHTML = 'Escaped: ' + sum;
+
+
+  if (allCirclesInactive) {
+    clearInterval(IntervalID5); // Stop the timer interval
+    document.getElementById('output').innerHTML = 'Game Over! You had a success percentage of ' +burstCount+ '%. Refresh the page to play again!';
+  }
 }
 
+
 function updateTimer() {
+  
   elapsedTime += 1; // Increment elapsed time by 1 millisecond
   document.getElementById('steps').innerHTML = 'Elapsed Time: ' + elapsedTime + ' ms';
 }
 
+
+function stopTimer() {
+  if (totalCircles >= 100) {
+    clearInterval(IntervalID5); // Stop the timer interval
+    document.getElementById('output').innerHTML = 'Game Over! You had a success percentage of ' +burstCount+ '%. Refresh the page to play again!';
+  }
+}
 
 
 
